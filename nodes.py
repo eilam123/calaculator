@@ -68,3 +68,12 @@ class PowerNode:
 
     def __repr__(self):
         return f"({self.node_a}^{self.node_b})"
+
+
+@dataclass
+class ModuloNode:
+    node_a: any
+    node_b: any
+
+    def __repr__(self):
+        return f"({self.node_a}%{self.node_b})"

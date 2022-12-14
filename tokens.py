@@ -9,8 +9,9 @@ class TokenType(Enum):
     MULTIPLY = 3
     DIVIDE = 4
     POWER = 5
-    LPAREN = 6
-    RPAREN = 7
+    MODULO = 6
+    LPAREN = 7
+    RPAREN = 8
     # UNARY_MINUS = 8
 
 

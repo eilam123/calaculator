@@ -32,6 +32,12 @@ class Interpreter:
     def visit_MinusNode(self, node):
         return Number(-self.visit(node.node).value)
 
+    def visit_ModuloNode(self, node):
+        try:
+            return Number(self.visit(node.node_a).value % self.visit(node.node_b).value)
+        except:
+            raise ZeroDivisionError("cannot divide by zero")
+
     # def visit_PlusNode(self, node):
     #     return Number(self.visit(node.node).value)
 

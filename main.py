@@ -6,7 +6,7 @@ while True:
     try:
         text = input("calc > ")
         lexer = Lexer(text)
-        tokens = lexer.generate_tokens()
+        tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
         parser = Parser(tokens)
         tree = parser.parse()
         print(tree)

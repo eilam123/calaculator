@@ -54,13 +54,22 @@ class Parser:
         return result
 
     def term2(self):
-        result = self.factor()
+        result = self.term3()
 
         while self.current_token != None and self.current_token.type == TokenType.POWER:
             if self.current_token.type == TokenType.POWER:
                 self.advance()
-                result = PowerNode(result, self.factor())
+                result = PowerNode(result, self.term3())
 
+        return result
+
+    def term3(self):
+        result = self.factor()
+
+        while self.current_token != None and self.current_token.type == TokenType.MODULO:
+            if self.current_token.type == TokenType.MODULO:
+                self.advance()
+                result = ModuloNode(result, self.factor())
         return result
 
     def factor(self):

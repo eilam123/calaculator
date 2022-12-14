@@ -77,3 +77,30 @@ class ModuloNode:
 
     def __repr__(self):
         return f"({self.node_a}%{self.node_b})"
+
+
+@dataclass
+class MaxNode:
+    node_a: any
+    node_b: any
+
+    def __repr__(self):
+        return f"({self.node_a}${self.node_b})"  # return f"max({self.node_a},{self.node_b})"
+
+
+@dataclass
+class MinNode:
+    node_a: any
+    node_b: any
+
+    def __repr__(self):
+        return f"({self.node_a}&{self.node_b})"  # return f"min({self.node_a},{self.node_b})"
+
+
+@dataclass
+class AverageNode:
+    node_a: any
+    node_b: any
+
+    def __repr__(self):
+        return f"({self.node_a}@{self.node_b})"  # return f"({self.node_a}+{self.node_b})/2"

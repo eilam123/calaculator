@@ -64,12 +64,27 @@ class Parser:
         return result
 
     def term3(self):
-        result = self.factor()
+        result = self.term4()
 
         while self.current_token != None and self.current_token.type == TokenType.MODULO:
             if self.current_token.type == TokenType.MODULO:
                 self.advance()
-                result = ModuloNode(result, self.factor())
+                result = ModuloNode(result, self.term4())
+        return result
+
+    def term4(self):
+        result = self.factor()
+
+        while self.current_token != None and self.current_token.type in (TokenType.MAX, TokenType.MIN, TokenType.AVERAGE):
+            if self.current_token.type == TokenType.MAX:
+                self.advance()
+                result = MaxNode(result, self.factor())
+            elif self.current_token.type == TokenType.MIN:
+                self.advance()
+                result = MinNode(result, self.factor())
+            elif self.current_token.type == TokenType.AVERAGE:
+                self.advance()
+                result = AverageNode(result, self.factor())
         return result
 
     def factor(self):

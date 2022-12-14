@@ -38,6 +38,15 @@ class Interpreter:
         except:
             raise ZeroDivisionError("cannot divide by zero")
 
+    def visit_MinNode(self, node):
+        return Number(min(self.visit(node.node_a).value, self.visit(node.node_b).value))
+
+    def visit_MaxNode(self, node):
+        return Number(max(self.visit(node.node_a).value, self.visit(node.node_b).value))
+
+    def visit_AverageNode(self, node):
+        return Number((self.visit(node.node_a).value + self.visit(node.node_b).value) / 2)
+
     # def visit_PlusNode(self, node):
     #     return Number(self.visit(node.node).value)
 

@@ -53,6 +53,15 @@ class Lexer:
             elif self.current_char == '%':
                 self.advance()
                 yield Token(TokenType.MODULO)
+            elif self.current_char == '$':
+                self.advance()
+                yield Token(TokenType.MAX)
+            elif self.current_char == '&':
+                self.advance()
+                yield Token(TokenType.MIN)
+            elif self.current_char == '@':
+                self.advance()
+                yield Token(TokenType.AVERAGE)
             elif self.current_char == '.':
                 raise Exception("Number can't start with '.'")
             else:

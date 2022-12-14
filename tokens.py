@@ -10,8 +10,11 @@ class TokenType(Enum):
     DIVIDE = 4
     POWER = 5
     MODULO = 6
-    LPAREN = 7
-    RPAREN = 8
+    MIN = 7
+    MAX = 8
+    AVERAGE = 9
+    LPAREN = 10
+    RPAREN = 11
     # UNARY_MINUS = 8
 
 

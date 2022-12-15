@@ -1,53 +1,50 @@
-from dataclasses import dataclass
-
-
-@dataclass
 class NumberNode:
-    value: any
+    def __init__(self, value):
+        self.value = value
 
     def __repr__(self):
-        return f"{self.value}"
+        return f'({self.value})'
 
 
-@dataclass
 class AddNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
         return f"({self.node_a}+{self.node_b})"
 
 
-@dataclass
 class SubtractNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
         return f"({self.node_a}-{self.node_b})"
 
 
-@dataclass
 class MultiplyNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
         return f"({self.node_a}*{self.node_b})"
 
 
-@dataclass
 class DivideNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
         return f"({self.node_a}/{self.node_b})"
 
 
-@dataclass
 class MinusNode:
-    node: any
+    def __init__(self, node):
+        self.node = node
 
     def __repr__(self):
         return f"(-{self.node})"
@@ -61,70 +58,71 @@ class MinusNode:
 #         return f"(+{self.node})"
 
 
-@dataclass
 class PowerNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
         return f"({self.node_a}^{self.node_b})"
 
 
-@dataclass
 class ModuloNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
         return f"({self.node_a}%{self.node_b})"
 
 
-@dataclass
 class MaxNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
-        return f"({self.node_a}${self.node_b})"  # return f"max({self.node_a},{self.node_b})"
+        return f"(({self.node_a}${self.node_b}))"
 
 
-@dataclass
 class MinNode:
-    node_a: any
-    node_b: any
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
-        return f"({self.node_a}&{self.node_b})"  # return f"min({self.node_a},{self.node_b})"
+        return f"(({self.node_a}&{self.node_b}))"
 
 
-@dataclass
 class AverageNode:
-    node_a: any
-    node_b: any
+
+    def __init__(self, node_a, node_b):
+        self.node_a = node_a
+        self.node_b = node_b
 
     def __repr__(self):
-        return f"({self.node_a}@{self.node_b})"  # return f"({self.node_a}+{self.node_b})/2"
+        return f"({self.node_a}@{self.node_b})"
 
 
-@dataclass
 class FactorialNode:
-    node: any
+    def __init__(self, node):
+        self.node = node
 
     def __repr__(self):
         return f"({self.node}!)"
 
 
-@dataclass
 class TildaNode:
-    node: any
+    def __init__(self, node):
+        self.node = node
 
     def __repr__(self):
-        return f"~{self.node}"
+        return f"(~{self.node})"
 
 
-@dataclass
 class DigitsSumNode:
-    node: any
+    def __init__(self, node):
+        self.node = node
 
     def __repr__(self):
-        return f"{self.node}#"
+        return f"({self.node}#)"

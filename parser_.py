@@ -17,12 +17,12 @@ class Parser:
             self.current_token = None
 
     def parse(self):
-        if self.current_token == None:
+        if self.current_token is None:
             return None
 
         result = self.expr()
 
-        if self.current_token != None:
+        if self.current_token is not None:
             self.raise_error()
 
         return result
@@ -30,7 +30,7 @@ class Parser:
     def expr(self):
         result = self.term1()
 
-        while self.current_token != None and self.current_token.type in (TokenType.PLUS, TokenType.MINUS):
+        while self.current_token is not None and self.current_token.type in (TokenType.PLUS, TokenType.MINUS):
             if self.current_token.type == TokenType.PLUS:
                 self.advance()
                 result = AddNode(result, self.term1())
@@ -43,7 +43,7 @@ class Parser:
     def term1(self):
         result = self.term2()
 
-        while self.current_token != None and self.current_token.type in (TokenType.MULTIPLY, TokenType.DIVIDE):
+        while self.current_token is not None and self.current_token.type in (TokenType.MULTIPLY, TokenType.DIVIDE):
             if self.current_token.type == TokenType.MULTIPLY:
                 self.advance()
                 result = MultiplyNode(result, self.term2())
@@ -56,7 +56,7 @@ class Parser:
     def term2(self):
         result = self.term3()
 
-        while self.current_token != None and self.current_token.type == TokenType.POWER:
+        while self.current_token is not None and self.current_token.type == TokenType.POWER:
             if self.current_token.type == TokenType.POWER:
                 self.advance()
                 result = PowerNode(result, self.term3())
@@ -66,7 +66,7 @@ class Parser:
     def term3(self):
         result = self.term4()
 
-        while self.current_token != None and self.current_token.type == TokenType.MODULO:
+        while self.current_token is not None and self.current_token.type == TokenType.MODULO:
             if self.current_token.type == TokenType.MODULO:
                 self.advance()
                 result = ModuloNode(result, self.term4())
@@ -75,7 +75,7 @@ class Parser:
     def term4(self):
         result = self.term5()
 
-        while self.current_token != None and self.current_token.type in (TokenType.MAX, TokenType.MIN, TokenType.AVERAGE):
+        while self.current_token is not None and self.current_token.type in (TokenType.MAX, TokenType.MIN, TokenType.AVERAGE):
             if self.current_token.type == TokenType.MAX:
                 self.advance()
                 result = MaxNode(result, self.term5())
@@ -90,7 +90,7 @@ class Parser:
     def term5(self):
         result = self.factor()
 
-        while self.current_token != None and self.current_token.type in(TokenType.FACTORIAL, TokenType.DIGITS_SUM):
+        while self.current_token is not None and self.current_token.type in (TokenType.FACTORIAL, TokenType.DIGITS_SUM):
             if self.current_token.type == TokenType.FACTORIAL:
                 self.advance()
                 result = FactorialNode(result)
@@ -116,7 +116,6 @@ class Parser:
             self.advance()
             return NumberNode(token.value)
 
-
         elif token.type == TokenType.MINUS:
             self.advance()
             return MinusNode(self.factor())
@@ -129,7 +128,6 @@ class Parser:
             elif token.type == TokenType.NUMBER:
                 self.advance()
                 return NumberNode(-token.value)
-
 
         # elif token.type == TokenType.PLUS:
         #     self.advance()

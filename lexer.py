@@ -16,10 +16,10 @@ class Lexer:
             self.current_char = None
 
     def generate_tokens(self):
-        while self.current_char != None:
+        while self.current_char is not None:
             if self.current_char in WHITESPACE:
                 self.advance()
-            elif self.current_char in DIGITS:  # delete self.current_char == '.' or because i dont want to allow number like .123 (start with .) -> done.
+            elif self.current_char.isdigit():  # delete self.current_char == '.' or because i dont want to allow number like .123 (start with .) -> done.
                 yield self.generate_number()
             elif self.current_char == '+':
                 self.advance()
@@ -81,7 +81,7 @@ class Lexer:
         number_str = self.current_char
         self.advance()
 
-        while self.current_char != None and (self.current_char == '.' or self.current_char in DIGITS):
+        while self.current_char is not None and (self.current_char == '.' or self.current_char in DIGITS):
             if self.current_char == '.':
                 decimal_point_count += 1
                 if decimal_point_count > 1:

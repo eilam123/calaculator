@@ -1,8 +1,4 @@
-from enum import Enum
-from dataclasses import dataclass
-
-
-class TokenType(Enum):
+class TokenType:
     NUMBER = 0
     PLUS = 1
     MINUS = 2
@@ -18,13 +14,12 @@ class TokenType(Enum):
     DIGITS_SUM = 12
     LPAREN = 13
     RPAREN = 14
-    # UNARY_MINUS = 8
 
 
-@dataclass
 class Token:
-    type: TokenType
-    value: any = None
+    def __init__(self, type, value=None):
+        self.type = type
+        self.value = value
 
     def __repr__(self):
         return self.type.name + (f":{self.value}" if self.value is not None else "")

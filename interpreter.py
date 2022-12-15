@@ -1,4 +1,3 @@
-from nodes import *
 from values import Number
 
 
@@ -51,7 +50,7 @@ class Interpreter:
         return Number(self.factorial(self.visit(node.node).value))
 
     def visit_TildaNode(self, node):
-        return Number(self.visit(node.node).value*-1)
+        return Number(self.visit(node.node).value * -1)
 
     def visit_DigitsSumNode(self, node):
         return Number(self.digits_sum(self.visit(node.node).value))
@@ -62,7 +61,8 @@ class Interpreter:
     def visit_PowerNode(self, node):
         return Number(self.power(self.visit(node.node_a).value, self.visit(node.node_b).value))
 
-    def power(self, a, b):
+    @staticmethod
+    def power(a, b):
         if b == 0 and a == 0:
             raise ZeroDivisionError("cannot divide by zero")
         if a < 0 and b % 1 != 0:
@@ -76,7 +76,8 @@ class Interpreter:
             return 1
         return n * self.factorial(n - 1)
 
-    def digits_sum(self, n):
+    @staticmethod
+    def digits_sum(n):
         if n < 0:
             n = -n
         return sum(float(i) for i in str(n) if i.isdigit())

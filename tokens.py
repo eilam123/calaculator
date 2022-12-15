@@ -13,8 +13,11 @@ class TokenType(Enum):
     MIN = 7
     MAX = 8
     AVERAGE = 9
-    LPAREN = 10
-    RPAREN = 11
+    FACTORIAL = 10
+    TILDA = 11
+    DIGITS_SUM = 12
+    LPAREN = 13
+    RPAREN = 14
     # UNARY_MINUS = 8
 
 

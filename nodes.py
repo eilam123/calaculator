@@ -104,3 +104,27 @@ class AverageNode:
 
     def __repr__(self):
         return f"({self.node_a}@{self.node_b})"  # return f"({self.node_a}+{self.node_b})/2"
+
+
+@dataclass
+class FactorialNode:
+    node: any
+
+    def __repr__(self):
+        return f"({self.node}!)"
+
+
+@dataclass
+class TildaNode:
+    node: any
+
+    def __repr__(self):
+        return f"~{self.node}"
+
+
+@dataclass
+class DigitsSumNode:
+    node: any
+
+    def __repr__(self):
+        return f"{self.node}#"

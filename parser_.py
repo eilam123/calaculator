@@ -73,18 +73,30 @@ class Parser:
         return result
 
     def term4(self):
-        result = self.factor()
+        result = self.term5()
 
         while self.current_token != None and self.current_token.type in (TokenType.MAX, TokenType.MIN, TokenType.AVERAGE):
             if self.current_token.type == TokenType.MAX:
                 self.advance()
-                result = MaxNode(result, self.factor())
+                result = MaxNode(result, self.term5())
             elif self.current_token.type == TokenType.MIN:
                 self.advance()
-                result = MinNode(result, self.factor())
+                result = MinNode(result, self.term5())
             elif self.current_token.type == TokenType.AVERAGE:
                 self.advance()
-                result = AverageNode(result, self.factor())
+                result = AverageNode(result, self.term5())
+        return result
+
+    def term5(self):
+        result = self.factor()
+
+        while self.current_token != None and self.current_token.type in(TokenType.FACTORIAL, TokenType.DIGITS_SUM):
+            if self.current_token.type == TokenType.FACTORIAL:
+                self.advance()
+                result = FactorialNode(result)
+            elif self.current_token.type == TokenType.DIGITS_SUM:
+                self.advance()
+                result = DigitsSumNode(result)
         return result
 
     def factor(self):
@@ -108,6 +120,16 @@ class Parser:
         elif token.type == TokenType.MINUS:
             self.advance()
             return MinusNode(self.factor())
+
+        elif token.type == TokenType.TILDA:
+            self.advance()
+            token = self.current_token
+            if token.type == TokenType.MINUS:
+                return MinusNode(self.factor())
+            elif token.type == TokenType.NUMBER:
+                self.advance()
+                return NumberNode(-token.value)
+
 
         # elif token.type == TokenType.PLUS:
         #     self.advance()

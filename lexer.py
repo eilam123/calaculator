@@ -62,6 +62,15 @@ class Lexer:
             elif self.current_char == '@':
                 self.advance()
                 yield Token(TokenType.AVERAGE)
+            elif self.current_char == '!':
+                self.advance()
+                yield Token(TokenType.FACTORIAL)
+            elif self.current_char == '~':
+                self.advance()
+                yield Token(TokenType.TILDA)
+            elif self.current_char == '#':
+                self.advance()
+                yield Token(TokenType.DIGITS_SUM)
             elif self.current_char == '.':
                 raise Exception("Number can't start with '.'")
             else:

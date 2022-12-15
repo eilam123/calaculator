@@ -1,4 +1,5 @@
 from values import Number
+from nodes import *
 
 
 class Interpreter:
@@ -8,7 +9,17 @@ class Interpreter:
     def visit(self, node):
         method_name = f'visit_{type(node).__name__}'
         method = getattr(self, method_name)
-        return method(node)
+        try:
+            return method(node)
+        except ZeroDivisionError as e:
+            print(e)
+            return None
+        except ValueError as e:
+            print(e)
+            return None
+        except AttributeError as e:
+            # print(e)
+            return None
 
     def visit_NumberNode(self, node):
         return Number(node.value)
@@ -23,19 +34,17 @@ class Interpreter:
         return Number(self.visit(node.node_a).value * self.visit(node.node_b).value)
 
     def visit_DivideNode(self, node):
-        try:
-            return Number(self.visit(node.node_a).value / self.visit(node.node_b).value)
-        except:
+        if self.visit(node.node_b).value == 0:
             raise ZeroDivisionError("cannot divide by zero")
+        return Number(self.visit(node.node_a).value / self.visit(node.node_b).value)
 
     def visit_MinusNode(self, node):
         return Number(-self.visit(node.node).value)
 
     def visit_ModuloNode(self, node):
-        try:
-            return Number(self.visit(node.node_a).value % self.visit(node.node_b).value)
-        except:
+        if self.visit(node.node_b).value == 0:
             raise ZeroDivisionError("cannot divide by zero")
+        return Number(self.visit(node.node_a).value % self.visit(node.node_b).value)
 
     def visit_MinNode(self, node):
         return Number(min(self.visit(node.node_a).value, self.visit(node.node_b).value))
@@ -72,6 +81,8 @@ class Interpreter:
     def factorial(self, n):
         if n < 0:
             raise ValueError("factorial is not defined for negative numbers")
+        if int(n) != n:
+            raise ValueError("factorial is not defined for non-integer numbers")
         if n == 0:
             return 1
         return n * self.factorial(n - 1)

@@ -22,4 +22,37 @@ class Token:
         self.value = value
 
     def __repr__(self):
-        return self.type.name + (f":{self.value}" if self.value is not None else "")
+        if self.type == TokenType.NUMBER:
+            return "NUMBER: " + (f"{self.value}" if self.value is not None else "")
+        elif self.type == TokenType.PLUS:
+            return "+"
+        elif self.type == TokenType.MINUS:
+            return "-"
+        elif self.type == TokenType.MULTIPLY:
+            return "*"
+        elif self.type == TokenType.DIVIDE:
+            return "/"
+        elif self.type == TokenType.POWER:
+            return "^"
+        elif self.type == TokenType.MODULO:
+            return "%"
+        elif self.type == TokenType.MIN:
+            return "&"
+        elif self.type == TokenType.MAX:
+            return "$"
+        elif self.type == TokenType.AVERAGE:
+            return "@"
+        elif self.type == TokenType.FACTORIAL:
+            return "!"
+        elif self.type == TokenType.TILDA:
+            return "~"
+        elif self.type == TokenType.DIGITS_SUM:
+            return "#"
+        elif self.type == TokenType.LPAREN:
+            return "("
+        elif self.type == TokenType.RPAREN:
+            return ")"
+        return "UNKNOWN TOKEN"
+
+
+

@@ -1,4 +1,4 @@
-from tokens import TokenType
+from tokens import TokenType, Token
 from nodes import *
 
 
@@ -8,9 +8,15 @@ class Parser:
         self.advance()
 
     def raise_error(self):
-        raise Exception("Invalid syntax")
+        try:
+            token = self.current_token
+            self.advance()
+            raise Exception(f"this character is not allowed in this place: {token}")
+        except Exception as e:
+            print(e)
 
     def advance(self):
+        """Advance the `current_token` to the next token on the token list of tokens."""
         try:
             self.current_token = next(self.tokens)
         except StopIteration:
@@ -27,6 +33,7 @@ class Parser:
 
         return result
 
+    # all the functions below are parts of the recursive descent parser algorithm.
     def expr(self):
         result = self.term1()
 
@@ -128,9 +135,16 @@ class Parser:
             elif token.type == TokenType.NUMBER:
                 self.advance()
                 return NumberNode(-token.value)
+            elif token.type == TokenType.LPAREN:
+                self.advance()
+                result = self.expr()
+                if self.current_token.type != TokenType.RPAREN:
+                    self.raise_error()
+                self.advance()
+                return MinusNode(result)
 
         # elif token.type == TokenType.PLUS:
         #     self.advance()
         #     return PlusNode(self.factor())
 
-        self.raise_error()  # need to specify what error to raise
+        self.raise_error()

@@ -4,18 +4,21 @@ WHITESPACE = ' \n\t'
 DIGITS = '0123456789'
 
 
+# add comments to the code
 class Lexer:
     def __init__(self, text):
         self.text = iter(text)
         self.advance()
 
     def advance(self):
+        """Advance the `self.current_char` pointer and set the `self.current_char` variable."""
         try:
             self.current_char = next(self.text)
         except StopIteration:
             self.current_char = None
 
     def generate_tokens(self):
+        """Lexical analyzer (also known as scanner or tokenizer) this method breaks a sentence apart into tokens. One token at a time."""
         while self.current_char is not None:
             if self.current_char in WHITESPACE:
                 self.advance()
@@ -72,11 +75,22 @@ class Lexer:
                 self.advance()
                 yield Token(TokenType.DIGITS_SUM)
             elif self.current_char == '.':
-                raise Exception("Number can't start with '.'")
+                try:
+                    raise Exception("Number can't start with '.'")
+                except Exception as e:
+                    print(e)
+                    return None
             else:
-                raise Exception(f"Illegal character '{self.current_char}'")
+                try:
+                    raise Exception(f"Illegal character '{self.current_char}'")
+                except Exception as e:
+                    print(e)
+                    return None
 
     def generate_number(self):
+        """this method takes the current character and keeps adding it to the number until it sees a non-digit character.
+            It then converts the string of digits into an integer and returns a NUMBER token.
+        """
         decimal_point_count = 0
         number_str = self.current_char
         self.advance()
@@ -89,9 +103,9 @@ class Lexer:
 
             number_str += self.current_char
             self.advance()
-
-        if number_str[0] == '0' and number_str[1] != '.':
-            raise Exception("Number can't start with '0' if there is no '.' after it")
+        if len(number_str) > 1:
+            if number_str[0] == '0' and number_str[1] != '.':
+                raise Exception("Number can't start with '0' if there is no '.' after it")
         if number_str.endswith('.'):  # if number end with '.' add raise exception -> done.
             raise Exception("Number can't end with '.'")
 

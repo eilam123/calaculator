@@ -21,6 +21,13 @@ class Parser:
             self.current_token = next(self.tokens)
         except StopIteration:
             self.current_token = None
+        except ValueError as e:
+            print(e)
+            self.current_token = None
+        except Exception as e:
+            self.current_token = None
+            print(e)
+
 
     def parse(self):
         if self.current_token is None:
@@ -108,43 +115,45 @@ class Parser:
 
     def factor(self):
         token = self.current_token
-
-        if token.type == TokenType.LPAREN:
-            self.advance()
-            result = self.expr()
-
-            if self.current_token.type != TokenType.RPAREN:
-                self.raise_error()
-
-            self.advance()
-            return result
-
-        elif token.type == TokenType.NUMBER:
-            self.advance()
-            return NumberNode(token.value)
-
-        elif token.type == TokenType.MINUS:
-            self.advance()
-            return MinusNode(self.factor())
-
-        elif token.type == TokenType.TILDA:
-            self.advance()
-            token = self.current_token
-            if token.type == TokenType.MINUS:
-                return MinusNode(self.factor())
-            elif token.type == TokenType.NUMBER:
-                self.advance()
-                return NumberNode(-token.value)
-            elif token.type == TokenType.LPAREN:
+        try:
+            if token.type == TokenType.LPAREN:
                 self.advance()
                 result = self.expr()
+
                 if self.current_token.type != TokenType.RPAREN:
                     self.raise_error()
+
                 self.advance()
-                return MinusNode(result)
+                return result
 
-        # elif token.type == TokenType.PLUS:
-        #     self.advance()
-        #     return PlusNode(self.factor())
+            elif token.type == TokenType.NUMBER:
+                self.advance()
+                return NumberNode(token.value)
 
-        self.raise_error()
+            elif token.type == TokenType.MINUS:
+                self.advance()
+                return MinusNode(self.factor())
+
+            elif token.type == TokenType.TILDA:
+                self.advance()
+                token = self.current_token
+                if token.type == TokenType.MINUS:
+                    return MinusNode(self.factor())
+                elif token.type == TokenType.NUMBER:
+                    self.advance()
+                    return NumberNode(-token.value)
+                elif token.type == TokenType.LPAREN:
+                    self.advance()
+                    result = self.expr()
+                    if self.current_token.type != TokenType.RPAREN:
+                        self.raise_error()
+                    self.advance()
+                    return MinusNode(result)
+
+            # elif token.type == TokenType.PLUS:
+            #     self.advance()
+            #     return PlusNode(self.factor())
+
+            self.raise_error()
+        except AttributeError as e:
+            print(e)

@@ -75,17 +75,10 @@ class Lexer:
                 self.advance()
                 yield Token(TokenType.DIGITS_SUM)
             elif self.current_char == '.':
-                try:
-                    raise Exception("Number can't start with '.'")
-                except Exception as e:
-                    print(e)
-                    return None
+                raise Exception("Number can't start with '.'")
             else:
-                try:
-                    raise Exception(f"Illegal character '{self.current_char}'")
-                except Exception as e:
-                    print(e)
-                    return None
+                raise ValueError(f"Illegal character '{self.current_char}'")
+
 
     def generate_number(self):
         """this method takes the current character and keeps adding it to the number until it sees a non-digit character.

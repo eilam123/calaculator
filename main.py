@@ -9,6 +9,8 @@ def main():
         lexer = Lexer(text)
         tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
         parser = Parser(tokens)
+        if parser is None:
+            continue
         tree = parser.parse()
         # print(tree)
         if not tree:

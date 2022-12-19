@@ -20,14 +20,17 @@ class Parser:
         """Advance the `current_token` to the next token on the token list of tokens."""
         try:
             self.current_token = next(self.tokens)
+
         except StopIteration:
             self.current_token = None
         except ValueError as e:
-            print(e)
-            self.current_token = None
+            # print(e)
+            # self.current_token = None
+            raise
         except Exception as e:
-            self.current_token = None
-            print(e)
+            # self.current_token = None
+            # print(e)
+            raise
 
     def parse(self):
         if self.current_token is None:

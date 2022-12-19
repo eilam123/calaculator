@@ -20,6 +20,9 @@ class Interpreter:
         except AttributeError as e:
             # print(e)
             return None
+        except OverflowError as e:
+            print(e)
+            return None
 
     def visit_NumberNode(self, node):
         return Number(node.value)

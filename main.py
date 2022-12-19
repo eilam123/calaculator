@@ -6,16 +6,30 @@ from interpreter import Interpreter
 # need to fix double tilda to not work -~-~3.
 # need to fix 3l error.
 
+
 def main():
     while True:
-        text = input("calc > ")
+        try:
+            text = input("calc> ")
+        except EOFError:
+            print("EOFError")
+            break
+
         lexer = Lexer(text)
         tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
-        parser = Parser(tokens)
+        try:
+            parser = Parser(tokens)
+        except Exception as e:
+            print(e)
+            continue
         if parser is None:
             continue
-        tree = parser.parse()
+        try:
+            tree = parser.parse()
         # print(tree)
+        except Exception as e:
+            print(e)
+            continue
         if not tree:
             continue
         interpreter = Interpreter()

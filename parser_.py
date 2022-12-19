@@ -6,6 +6,7 @@ class Parser:
     def __init__(self, tokens):
         self.tokens = iter(tokens)
         self.advance()
+        self.flag = True
 
     def raise_error(self):
         try:
@@ -27,7 +28,6 @@ class Parser:
         except Exception as e:
             self.current_token = None
             print(e)
-
 
     def parse(self):
         if self.current_token is None:
@@ -103,7 +103,6 @@ class Parser:
 
     def term5(self):
         result = self.factor()
-
         while self.current_token is not None and self.current_token.type in (TokenType.FACTORIAL, TokenType.DIGITS_SUM):
             if self.current_token.type == TokenType.FACTORIAL:
                 self.advance()
@@ -134,16 +133,19 @@ class Parser:
                 self.advance()
                 return MinusNode(self.factor())
 
-            elif token.type == TokenType.TILDA:
+            elif token.type == TokenType.TILDA and self.flag:
+                self.flag = False
                 self.advance()
                 token = self.current_token
                 if token.type == TokenType.MINUS:
                     return MinusNode(self.factor())
                 elif token.type == TokenType.NUMBER:
                     self.advance()
+                    self.flag = True
                     return NumberNode(-token.value)
                 elif token.type == TokenType.LPAREN:
                     self.advance()
+                    self.flag = True
                     result = self.expr()
                     if self.current_token.type != TokenType.RPAREN:
                         self.raise_error()

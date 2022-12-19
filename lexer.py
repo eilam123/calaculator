@@ -79,7 +79,6 @@ class Lexer:
             else:
                 raise ValueError(f"Illegal character '{self.current_char}'")
 
-
     def generate_number(self):
         """this method takes the current character and keeps adding it to the number until it sees a non-digit character.
             It then converts the string of digits into an integer and returns a NUMBER token.

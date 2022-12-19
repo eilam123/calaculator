@@ -3,6 +3,9 @@ from parser_ import Parser
 from interpreter import Interpreter
 
 
+# need to fix double tilda to not work -~-~3.
+# need to fix 3l error.
+
 def main():
     while True:
         text = input("calc > ")
@@ -23,19 +26,16 @@ def main():
 
 
 def main2(text):
-    try:
-        text = text
-        lexer = Lexer(text)
-        tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
-        parser = Parser(tokens)
-        tree = parser.parse()
-        if not tree:
-            return None
-        interpreter = Interpreter()
-        value = interpreter.visit(tree)
-        return value
-    except Exception as e:
-        print(e)
+    text = text
+    lexer = Lexer(text)
+    tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
+    parser = Parser(tokens)
+    tree = parser.parse()
+    if not tree:
+        return None
+    interpreter = Interpreter()
+    value = interpreter.visit(tree)
+    return value
 
 
 if __name__ == '__main__':

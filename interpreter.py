@@ -76,9 +76,15 @@ class Interpreter:
             raise ZeroDivisionError("cannot divide by zero")
         if a < 0 and b % 1 != 0:
             raise ValueError("cannot raise negative number to a non-integer power")
-        return pow(a, b)
+        try:
+            return pow(a, b)
+        except OverflowError as e:
+            print("number is too big")
+            return None
 
     def factorial(self, n):
+        if n > 100:
+            raise ValueError("number is too big")
         if n < 0:
             raise ValueError("factorial is not defined for negative numbers")
         if int(n) != n:

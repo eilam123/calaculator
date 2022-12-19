@@ -38,7 +38,7 @@ class Interpreter:
 
     def visit_DivideNode(self, node):
         if self.visit(node.node_b).value == 0:
-            raise ZeroDivisionError("cannot divide by zero")
+            raise ZeroDivisionError("can not divide by zero")
         return Number(self.visit(node.node_a).value / self.visit(node.node_b).value)
 
     def visit_MinusNode(self, node):

@@ -10,45 +10,62 @@ from interpreter import Interpreter
 def main():
     while True:
         try:
-            text = input("calc> ")
-        except EOFError:
-            print("EOFError")
-            break
+            try:
+                text = input("calc> ")
+            except EOFError:
+                print("EOFError")
+                break
 
-        lexer = Lexer(text)
-        tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
-        try:
-            parser = Parser(tokens)
-        except Exception as e:
-            print(e)
-            continue
-        if parser is None:
-            continue
-        try:
-            tree = parser.parse()
-        # print(tree)
-        except Exception as e:
-            print(e)
-            continue
-        if not tree:
-            continue
-        interpreter = Interpreter()
-        value = interpreter.visit(tree)
-        if value is None:
-            continue
-        print(value)
+            lexer = Lexer(text)
+            tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
+            try:
+                parser = Parser(tokens)
+            except Exception as e:
+                print(e)
+                continue
+            if parser is None:
+                continue
+            try:
+                tree = parser.parse()
+            # print(tree)
+            except Exception as e:
+                print(e)
+                continue
+            if not tree:
+                continue
+            interpreter = Interpreter()
+            value = interpreter.visit(tree)
+            if value is None:
+                continue
+            print(value)
+        except KeyboardInterrupt:
+            print("\nthe program was interrupted by the user.")
+            break
 
 
 def main2(text):
-    text = text
     lexer = Lexer(text)
     tokens = lexer.generate_tokens()  # try tokens = list(lexer.generate_tokens()) -> done.
-    parser = Parser(tokens)
-    tree = parser.parse()
+    try:
+        parser = Parser(tokens)
+    except Exception as e:
+        print(e)
+        return str(e)
+
+    if parser is None:
+        return None
+    try:
+        tree = parser.parse()
+    # print(tree)
+    except Exception as e:
+        print(e)
+        return str(e)
     if not tree:
         return None
     interpreter = Interpreter()
     value = interpreter.visit(tree)
+    if value is None:
+        return None
     return value
 
 
